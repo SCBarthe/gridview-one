@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using auto2; 
+using auto2;
 
 namespace gridview_one
 {
@@ -12,9 +12,15 @@ namespace gridview_one
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            AutoNegocio negocio = new AutoNegocio();
-            dgvauto.DataSource = negocio.listar();
-            dgvauto.DataBind(); 
+            if (Session["listaAutos"] == null)
+            {
+
+                AutoNegocio negocio = new AutoNegocio();
+                Session.Add("listaAutos", negocio.listar());
+            }
+
+            dgvauto.DataSource = Session["listaAutos"];
+            dgvauto.DataBind();
 
 
         }
